@@ -14,15 +14,13 @@
 
 void	ft_move(t_game **game, int x, int y)
 {
-	// ft_mlx_put_image(game, (*game)->bg, (*game)->player_x, (*game)->player_y);
-	// ft_mlx_put_image(game, (*game)->player, (*game)->player_x + x,
-		// (*game)->player_y + y);
 	(*game)->map[(*game)->client->player.position.y][(*game)->client->player.position.x] = '0';
 	(*game)->map[(*game)->client->player.position.y + y][(*game)->client->player.position.x + x] = 'P';
 	(*game)->client->player.position.x += x;
 	(*game)->client->player.position.y += y;
 	(*game)->player_move++;
 	printf("\33[2K\rHamle sayisi : %i", (*game)->player_move);
+	(*game)->client->response();
 }
 
 void	ft_ismove(t_game **game, int x, int y)

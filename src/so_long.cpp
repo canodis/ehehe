@@ -55,7 +55,6 @@ int	Client::loop(void *c)
 	Client	*client = (Client *)c;
 
 	client->draw();
-	client->response();
 	usleep(10000);
 	return (0);
 	
@@ -65,17 +64,17 @@ int	main(int argc, char **argv)
 {
 	t_game	*game;
 	game = (t_game *)malloc(sizeof(t_game));
-	if (argc < 3) {
-		printf("Lutfen harita ve kullanici adi giriniz :\n./so_long maps/map_1.ber [nickname]");
+	if (argc != 2) {
+		printf("Lutfen kullanici adi giriniz :\n./so_long [nickname]");
 		return (0);
 	}
-	Client	client("193.164.7.169", argv[2], 8080);
+	Client	client("193.164.7.169", argv[1], 8080);
 	client.game = game;
 	game->client = &client;
 	game->m = 50;
 	if (!game)
 		return (0);
-	if (!(check_name(argv[1])) || !(ft_init_map(&game, argv)))
+	if (!(check_name("maps/map_2.ber")) || !(ft_init_map(&game, argv)))
 		print_message("map yuklenemedi !", &game);
 	game->player_move = 0;
 	

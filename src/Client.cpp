@@ -8,8 +8,8 @@ Client::Client(const char *ip_adress, const char *username, int port) : uname(us
 	player.position.x = 0;
 	player.position.y = 0;
 	player.username = std::string(uname);
-	pimage1 = mlx_xpm_file_to_image(game->mlx, "./Sprites/sprite1.xpm", &a, &a);
-	pimage2 = mlx_xpm_file_to_image(game->mlx, "./Sprites/sprite2.xpm", &a, &a);
+	// pimage1 = mlx_xpm_file_to_image(game->mlx, "./Sprites/sprite1.xpm", &a, &a);
+	// pimage2 = mlx_xpm_file_to_image(game->mlx, "./Sprites/sprite2.xpm", &a, &a);
 	SocketInit(ip_adress, port);
 }
 
@@ -52,7 +52,7 @@ void Client::parse_requests(const std::string& input)
 			std::istringstream ss(substr.substr(3));
 			int new_fd;
 			ss >> new_fd;
-			allPlayers.push_back(new Player(new_fd, 0, 0));
+			allPlayers.push_back(new Player(new_fd, 50, 50));
 		} else if (substr.find("Left") == 0) {
 			std::istringstream ss(substr.substr(4));
 			int fd;
@@ -92,8 +92,9 @@ void	Client::LoginRequest(std::istringstream &ss)
 	ss >> pIndex;
 	for (int i = 0; i < playerCount - 1; i++) {
 		ss >> playerFd;
-		allPlayers.push_back(new Player(playerFd, 50, 50));
+		allPlayers.push_back(new Player(playerFd, 1, 1));
 	}
+	response();
 }
 
 void	Client::deletePlayer(int fd) {
@@ -112,12 +113,11 @@ void	Client::response()
 		return ;
 	sprintf(this->res, "/Pos%d %s %d %d*", pIndex, this->uname, player.position.x, player.position.y);
 	send(this->sock, this->res, strlen(this->res), 0);
-	// printf("gonderildi : %s\n", res);
 }
 
 void	Client::draw()
 {
-	mlx_clear_window(game->mlx, game->window);
+	// mlx_clear_window(game->mlx, game->window);
 	for (int y = 0; y < game->max_y; y++)
 	{
 		for (int x = 0; x < game->max_x; x++)
@@ -137,6 +137,7 @@ void	Client::draw()
 			}
 		}
 	}
+	printf("players size : %d\n", allPlayers.size());
 	for (int i = 0; i < allPlayers.size(); i++) {
 		mlx_put_image_to_window(game->mlx, game->window, game->enemy, allPlayers[i]->position.x * 50, allPlayers[i]->position.y * 50);
 		mlx_string_put(game->mlx, game->window, (allPlayers[i]->position.x * 50) + 10, allPlayers[i]->position.y * 50 - 20, 0x00FF00, allPlayers[i]->username.c_str());
