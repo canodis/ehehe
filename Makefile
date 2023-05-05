@@ -9,6 +9,7 @@ all: $(NAME)
 
 $(NAME): $(MINILIBX)
 	$(CC) $(MFLAGS) $(SRCS) -o $(NAME) mlx-mac/libmlx.a
+	@echo "./so_long_multiplayer [kullanici_adi]"
 
 $(MINILIBX):
 	make -C mlx-linux
