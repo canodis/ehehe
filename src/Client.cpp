@@ -137,7 +137,6 @@ void	Client::draw()
 			}
 		}
 	}
-	printf("players size : %d\n", allPlayers.size());
 	for (int i = 0; i < allPlayers.size(); i++) {
 		mlx_put_image_to_window(game->mlx, game->window, game->enemy, allPlayers[i]->position.x * 50, allPlayers[i]->position.y * 50);
 		mlx_string_put(game->mlx, game->window, (allPlayers[i]->position.x * 50) + 10, allPlayers[i]->position.y * 50 - 20, 0x00FF00, allPlayers[i]->username.c_str());
