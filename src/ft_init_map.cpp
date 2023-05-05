@@ -81,7 +81,7 @@ bool	ft_init_map(t_game **game, char **argv)
 	int		fd;
 	char	*map;
 
-	fd = open("maps/map_2.ber", O_RDONLY);
+	fd = open("maps/map_1.ber", O_RDONLY);
 	if (fd <= 0)
 		print_message("Dosya acilamadi !", game);
 	map = ft_read_map(game, fd);

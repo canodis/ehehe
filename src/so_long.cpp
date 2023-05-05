@@ -65,7 +65,7 @@ int	main(int argc, char **argv)
 	t_game	*game;
 	game = (t_game *)malloc(sizeof(t_game));
 	if (argc != 2) {
-		printf("Lutfen kullanici adi giriniz :\n./so_long [nickname]");
+		printf("Lutfen kullanici adi giriniz :\n./so_long_multiplayer [nickname]");
 		return (0);
 	}
 	Client	client("193.164.7.169", argv[1], 8080);
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 	game->m = 50;
 	if (!game)
 		return (0);
-	if (!(check_name("maps/map_2.ber")) || !(ft_init_map(&game, argv)))
+	if (!(check_name("maps/map_1.ber")) || !(ft_init_map(&game, argv)))
 		print_message("map yuklenemedi !", &game);
 	game->player_move = 0;
 	
